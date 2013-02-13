@@ -5,6 +5,9 @@ describe GoogleMapsGeocoder do
     begin
       @exact_match   = GoogleMapsGeocoder.new('837 Union Street Brooklyn NY')
       @partial_match = GoogleMapsGeocoder.new('1600 Pennsylvania Washington')
+
+      @exact_match.localize!
+      @partial_match.localize!
     rescue SocketError
       @no_network  = true
     rescue RuntimeError
@@ -51,7 +54,7 @@ describe GoogleMapsGeocoder do
       specify { subject.postal_code.should =~ /2050[0-9]/ }
       specify { subject.country_short_name.should == 'US' }
       specify { subject.country_long_name.should == 'United States' }
-      specify { subject.formatted_address.should =~ /1600 Pennsylvania Avenue Northwest, Washington, DC 2050[0-9], USA/ }
+      specify { subject.formatted_address.should =~ /1600 Pennsylvania Avenue Northwest, President's Park, Washington, DC 2050[0-9], USA/ }
    end
 
    context 'coordinates' do
