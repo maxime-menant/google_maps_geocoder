@@ -34,6 +34,7 @@ describe GoogleMapsGeocoder do
       specify { subject.country_short_name.should == 'US' }
       specify { subject.country_long_name.should == 'United States' }
       specify { subject.formatted_address.should =~ /837 Union Street, Brooklyn, NY 1121[0-9], USA/ }
+      specify { subject.location_level.should == 'street_address' }
     end
 
     context 'coordinates' do
@@ -55,6 +56,7 @@ describe GoogleMapsGeocoder do
       specify { subject.country_short_name.should == 'US' }
       specify { subject.country_long_name.should == 'United States' }
       specify { subject.formatted_address.should =~ /1600 Pennsylvania Avenue Northwest, President's Park, Washington, DC 2050[0-9], USA/ }
+      specify { subject.location_level.should == 'street_address' }
    end
 
    context 'coordinates' do

@@ -9,7 +9,7 @@ class GoogleMapsGeocoder
   # Returns the formatted street address with standardized abbreviations.
   attr_reader :formatted_street_address
   # Self-explanatory
-  attr_reader :city, :country_long_name, :country_short_name, :county, :lat, :lng, :postal_code, :state_long_name, :state_short_name
+  attr_reader :city, :country_long_name, :country_short_name, :county, :lat, :lng, :postal_code, :state_long_name, :state_short_name, :location_level
 
   # Instance Methods: Overrides ====================================================================
 
@@ -43,9 +43,9 @@ class GoogleMapsGeocoder
     end
 
     # logger = Logger.new(STDERR)
-    # logger.info('GoogleMapsGeocoder') { "Geocoded \"#{data}\" and Google returned...\n#{@json.inspect}" }
+    # logger.info('GoogleMapsGeocoder') { "Geocoded \"#{@data}\" and Google returned...\n#{@json.inspect}" }
 
-    @city, @country_short_name, @country_long_name, @county, @formatted_address, @formatted_street_address, @lat, @lng, @postal_code, @state_long_name, @state_short_name = parse_city, parse_country_short_name, parse_country_long_name, parse_county, parse_formatted_address, parse_formatted_street_address, parse_lat, parse_lng, parse_postal_code, parse_state_long_name, parse_state_short_name
+    @city, @country_short_name, @country_long_name, @county, @formatted_address, @formatted_street_address, @lat, @lng, @postal_code, @state_long_name, @state_short_name, @location_level = parse_city, parse_country_short_name, parse_country_long_name, parse_county, parse_formatted_address, parse_formatted_street_address, parse_lat, parse_lng, parse_postal_code, parse_state_long_name, parse_state_short_name, parse_location_level
     true
   end
   # Instance Methods ===============================================================================
@@ -121,5 +121,9 @@ class GoogleMapsGeocoder
 
   def parse_state_short_name
     parse_address_component_type('administrative_area_level_1', 'short_name')
+  end
+
+  def parse_location_level
+    @json['results'][0]['types'][0]
   end
 end
